@@ -5,16 +5,6 @@ public class Unit : Selectable
 {
 
     // Use this for initialization
-    //replace with components?
-
-    enum E_ACTIONS
-    {
-        ACTION_STOP,
-        ACTION_MOVE,
-        ACTION_ATTACK,
-    }
-
-    E_ACTIONS m_currentCommand;
 
     Vector3 m_position;
     float m_rotation;
