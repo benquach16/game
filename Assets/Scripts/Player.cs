@@ -8,13 +8,20 @@ public class Player : NetworkBehaviour {
 
     public override void OnStartLocalPlayer() // this is our player
     {
+        
         base.OnStartLocalPlayer();
 
-        m_playerCamera = new Camera();
+        m_playerCamera = Camera.main;
+        m_playerCamera.transform.position = new Vector3(0, 50, 0);
     }
 
     void Start ()
     {
+        if(isClient)
+        {
+
+            Debug.Log("Local player");
+        }
     }
     
     void Update ()
