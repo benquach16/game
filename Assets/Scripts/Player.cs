@@ -5,10 +5,16 @@ using UnityEngine.Networking;
 public class Player : NetworkBehaviour {
 
     Camera m_playerCamera;
+
+    public override void OnStartLocalPlayer() // this is our player
+    {
+        base.OnStartLocalPlayer();
+
+        m_playerCamera = new Camera();
+    }
+
     void Start ()
     {
-        //create a camera for the player
-        m_playerCamera = new Camera();
     }
     
     void Update ()
