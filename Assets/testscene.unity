@@ -98,6 +98,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_Channels.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4684807113724040, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 16.195988
@@ -129,6 +134,31 @@ Prefab:
     - target: {fileID: 4684807113724040, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_CustomConfig
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_Channels.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_UseSimulator
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_ServerBindToIP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_ServerBindAddress
+      value: 127.0.0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}

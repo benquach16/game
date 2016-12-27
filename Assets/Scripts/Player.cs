@@ -6,18 +6,13 @@ public class Player : NetworkBehaviour {
 
     Camera m_playerCamera;
 
-    public override void OnStartLocalPlayer() // this is our player
-    {
-        
-        base.OnStartLocalPlayer();
-
-        m_playerCamera = Camera.main;
-        m_playerCamera.transform.position = new Vector3(0, 50, 0);
-    }
 
     void Start ()
     {
-        if(isClient)
+        transform.position = new Vector3(0, 5, -20);
+        m_playerCamera = gameObject.GetComponent<Camera>();
+        transform.LookAt(new Vector3(0, 0, 0));
+        if(hasAuthority)
         {
 
             Debug.Log("Local player");
@@ -26,7 +21,7 @@ public class Player : NetworkBehaviour {
     
     void Update ()
     {
-        if(!isLocalPlayer)
+        if (!hasAuthority)
         {
             return;
         }

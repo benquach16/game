@@ -2,23 +2,25 @@
 using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
+using UnityEngine.Networking.NetworkSystem;
 using System.Collections;
 using System.Collections.Generic;
 
 
-public class NetworkManager : MonoBehaviour {
+public class NetworkingManager : NetworkManager {
 
-    const int PORT = 27015;
+    const int PORT = 25001;
     // Use this for initialization
     GameObject playerPrefab;
     uint m_numConnections = 2;
     NetworkMatch m_networkMatch;
-
     void Start () {
+        StartMatchMaker();
+
         m_networkMatch = gameObject.AddComponent<NetworkMatch>();
         //create match when we don't have any other games
         playerPrefab = Resources.Load("Prefabs/Objects/playerPrefab") as GameObject;
-        m_networkMatch.ListMatches(0, 10, "", true, 0, 0, OnMatchList);
+        matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchList);
     }
 
 
@@ -32,10 +34,13 @@ public class NetworkManager : MonoBehaviour {
         if(success)
         {
             Debug.Log("Created Match");
+            Debug.Log(matchInfo.address);
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
-            NetworkServer.Listen(matchInfo, matchInfo.port);
+            StartHost(matchInfo);
+
             //since this is p2p we create a player here
-            GameObject client = GameObject.Instantiate(playerPrefab);
+            //NetworkServer.Spawn(playerPrefab);
+
         }
     }
 
@@ -48,7 +53,9 @@ public class NetworkManager : MonoBehaviour {
             //if no matches create a match
             if(matches.Count == 0)
             {
-                m_networkMatch.CreateMatch("roomName", m_numConnections, true, "", "", "", 0, 0, OnMatchCreate);
+                //use local host for now
+
+                matchMaker.CreateMatch("roomName", m_numConnections, true, "", "127.0.0.1", "", 0, 0, OnMatchCreate);
                 return;
             }
 
@@ -58,7 +65,8 @@ public class NetworkManager : MonoBehaviour {
                 //auto join if we have an open match
                 if(match.currentSize < match.maxSize)
                 {
-                    m_networkMatch.JoinMatch(match.networkId, "", "", "", 0, 0, OnJoinMatch);
+                    matchMaker.JoinMatch(match.networkId, "", "127.0.0.1", "", 0, 0, OnJoinMatch);
+                    return;
                 }
             }
         }
@@ -66,19 +74,30 @@ public class NetworkManager : MonoBehaviour {
 
     public void OnJoinMatch(bool success, string extendedInfo, MatchInfo matchInfo)
     {
-        Debug.Log("Joined Match");
+        Debug.Log("Got Match");
         //do connection shit here
         //spawn a player for us
-        GameObject client = GameObject.Instantiate(playerPrefab);
+        if (Utility.GetAccessTokenForNetwork(matchInfo.networkId) == null)
+            Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
+
+        var client = StartClient(matchInfo);
+        Debug.Log(matchInfo.address);
+        client.Connect(matchInfo.address, matchInfo.port);
+        client.RegisterHandler(MsgType.Connect, OnConnected);
+
+        if (!isNetworkActive)
+            Debug.Log("sdf");
+
     }
 
+    public void test(NetworkMessage msg)
+    {
+        Debug.Log("getmessage");
+    }
 
     //deprecated for matchmaking
     //keeping this in case want to switch from matchmaking
-    void StartServer()
-    {
-        NetworkServer.Listen(PORT);
-    }
+
     public void SetupClient()
     {
         ClientScene.RegisterPrefab(playerPrefab);
@@ -86,10 +105,17 @@ public class NetworkManager : MonoBehaviour {
         //client = new NetworkClient();
         //client.RegisterHandler(MsgType.Connect, OnConnected);
         //client.Connect("127.0.0.1", PORT);
+        MasterServer.PollHostList();
 
+    }
+    public void OnPlayerConnected(NetworkPlayer player)
+    {
+        Debug.Log("connection done");
     }
     public void OnConnected(NetworkMessage netMsg)
     {
         Debug.Log("Connected to server");
+        //GameObject player = (GameObject)GameObject.Instantiate((Object)playerPrefab);
+        client.Send(1002, new IntegerMessage(5));
     }
 }
