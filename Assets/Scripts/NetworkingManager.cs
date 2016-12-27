@@ -11,15 +11,12 @@ public class NetworkingManager : NetworkManager {
 
     const int PORT = 25001;
     // Use this for initialization
-    GameObject playerPrefab;
-    uint m_numConnections = 2;
     NetworkMatch m_networkMatch;
     void Start () {
         StartMatchMaker();
 
         m_networkMatch = gameObject.AddComponent<NetworkMatch>();
         //create match when we don't have any other games
-        playerPrefab = Resources.Load("Prefabs/Objects/playerPrefab") as GameObject;
         matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchList);
     }
 
@@ -36,13 +33,11 @@ public class NetworkingManager : NetworkManager {
             Debug.Log("Created Match");
             Debug.Log(matchInfo.address);
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
-            StartHost(matchInfo);
-
-            //since this is p2p we create a player here
-            //NetworkServer.Spawn(playerPrefab);
-
+            var client = StartHost(matchInfo);
         }
     }
+
+
 
     public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matches)
     {
@@ -55,7 +50,7 @@ public class NetworkingManager : NetworkManager {
             {
                 //use local host for now
 
-                matchMaker.CreateMatch("roomName", m_numConnections, true, "", "127.0.0.1", "", 0, 0, OnMatchCreate);
+                matchMaker.CreateMatch("roomName", (uint)maxConnections, true, "", "127.0.0.1", "", 0, 0, OnMatchCreate);
                 return;
             }
 
@@ -82,40 +77,26 @@ public class NetworkingManager : NetworkManager {
 
         var client = StartClient(matchInfo);
         Debug.Log(matchInfo.address);
-        client.Connect(matchInfo.address, matchInfo.port);
-        client.RegisterHandler(MsgType.Connect, OnConnected);
-
+        client.Connect(matchInfo);
+        client.RegisterHandler(MsgType.Connect, OnConnectedClient);
+        
         if (!isNetworkActive)
             Debug.Log("sdf");
 
     }
 
-    public void test(NetworkMessage msg)
-    {
-        Debug.Log("getmessage");
-    }
-
-    //deprecated for matchmaking
-    //keeping this in case want to switch from matchmaking
-
-    public void SetupClient()
-    {
-        ClientScene.RegisterPrefab(playerPrefab);
-
-        //client = new NetworkClient();
-        //client.RegisterHandler(MsgType.Connect, OnConnected);
-        //client.Connect("127.0.0.1", PORT);
-        MasterServer.PollHostList();
-
-    }
     public void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("connection done");
     }
-    public void OnConnected(NetworkMessage netMsg)
+    public void OnConnectedClient(NetworkMessage netMsg)
     {
         Debug.Log("Connected to server");
-        //GameObject player = (GameObject)GameObject.Instantiate((Object)playerPrefab);
-        client.Send(1002, new IntegerMessage(5));
+        ClientScene.Ready(netMsg.conn);
+        ClientScene.AddPlayer(0);
+        //NetworkServer.SpawnObjects();
+        
     }
+
+
 }

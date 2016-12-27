@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684807113724040}
   - component: {fileID: 114424287995449380}
+  - component: {fileID: 114720919821383582}
   m_Layer: 0
   m_Name: networkManagerPrefab
   m_TagString: Untagged
@@ -52,13 +53,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
-  m_ServerBindToIP: 0
-  m_ServerBindAddress: 
+  m_ServerBindToIP: 1
+  m_ServerBindAddress: 127.0.0.1
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
-  m_MaxDelay: 0.01
+  m_MaxDelay: 0.5
   m_LogLevel: 0
   m_PlayerPrefab: {fileID: 1770443853138694, guid: 08d35262b39112e40ba9a8ea9392912b,
     type: 2}
@@ -66,7 +67,8 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -96,12 +98,12 @@ MonoBehaviour:
     m_ReactorMaximumReceivedMessages: 1024
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
-  m_MaxBufferedPackets: 16
+  m_MaxBufferedPackets: 8
   m_AllowFragmentation: 1
   m_MatchHost: mm.unet.unity3d.com
   m_MatchPort: 443
@@ -109,3 +111,18 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
+--- !u!114 &114720919821383582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108022311178546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0

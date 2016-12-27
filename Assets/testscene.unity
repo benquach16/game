@@ -103,6 +103,11 @@ Prefab:
       propertyPath: m_Channels.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_SpawnPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4684807113724040, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 16.195988
@@ -160,7 +165,33 @@ Prefab:
       propertyPath: m_ServerBindAddress
       value: 127.0.0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_LogLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_MaxDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_MaxBufferedPackets
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_PlayerSpawnMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424287995449380, guid: b97a7226b6378ec498184a0a4bed39bf,
+        type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114720919821383582, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b97a7226b6378ec498184a0a4bed39bf, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &687983616
