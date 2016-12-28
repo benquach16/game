@@ -5,9 +5,9 @@ using UnityEngine;
 public class Weapon : Component {
 
     // Use this for initialization
-    int m_damage;
-    int m_attackrate;
-    int m_range;
+    public int m_damage;
+    public int m_attackrate;
+    public int m_range;
     GameObject m_projectile;
 
 	void Start () {

@@ -10,12 +10,8 @@ using System.Collections.Generic;
 public class NetworkingManager : NetworkManager {
 
     const int PORT = 25001;
-    // Use this for initialization
-    NetworkMatch m_networkMatch;
     void Start () {
         StartMatchMaker();
-
-        m_networkMatch = gameObject.AddComponent<NetworkMatch>();
         //create match when we don't have any other games
         matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchList);
     }
@@ -74,28 +70,22 @@ public class NetworkingManager : NetworkManager {
         //spawn a player for us
         if (Utility.GetAccessTokenForNetwork(matchInfo.networkId) == null)
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
-
         var client = StartClient(matchInfo);
         Debug.Log(matchInfo.address);
         client.Connect(matchInfo);
         client.RegisterHandler(MsgType.Connect, OnConnectedClient);
-        
-        if (!isNetworkActive)
-            Debug.Log("sdf");
-
     }
 
     public void OnPlayerConnected(NetworkPlayer player)
     {
-        Debug.Log("connection done");
+        Debug.Log("player connected");
     }
     public void OnConnectedClient(NetworkMessage netMsg)
     {
         Debug.Log("Connected to server");
+        //need to set connection as ready
         ClientScene.Ready(netMsg.conn);
         ClientScene.AddPlayer(0);
-        //NetworkServer.SpawnObjects();
-        
     }
 
 

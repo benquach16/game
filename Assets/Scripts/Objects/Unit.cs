@@ -6,7 +6,8 @@ public class Unit : Selectable
 {
 
     // Use this for initialization
-    List<Component> m_components;
+    public List<Component> m_components;
+    bool selected = false;
 
     void Start ()
     {
@@ -17,5 +18,10 @@ public class Unit : Selectable
     void Update ()
     {
     
+    }
+
+    void runAI()
+    {
+
     }
 }
