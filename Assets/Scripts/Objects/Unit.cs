@@ -6,7 +6,7 @@ public class Unit : Selectable
 {
 
     // Use this for initialization
-    public List<Component> m_components;
+    public List<GameObject> m_components;
     bool selected = false;
 
     void Start ()
@@ -17,9 +17,18 @@ public class Unit : Selectable
     // Update is called once per frame
     void Update ()
     {
-    
+        //draw selection circle
+        if(selected)
+        {
+
+        }
     }
 
+    private void OnMouseDown()
+    {
+        //do selection
+        selected = true;
+    }
     void runAI()
     {
 

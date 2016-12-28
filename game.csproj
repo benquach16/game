@@ -79,7 +79,9 @@
     <Compile Include="Assets\Scripts\Gameplay\Actions\CommandMove.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Armor.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Component.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Components\Health.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Weapon.cs" />
+    <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\NetworkingManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Selectable.cs" />
     <Compile Include="Assets\Scripts\Objects\Unit.cs" />
