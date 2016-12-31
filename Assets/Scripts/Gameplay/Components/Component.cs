@@ -9,7 +9,8 @@ public class Component : MonoBehaviour {
     enum E_COMPONENT_TYPES
     {
         E_TYPE_WEAPON,
-        E_TYPE_ARMOR
+        E_TYPE_ARMOR,
+        E_TYPE_MOVEMENT
     }
 	void Start () {
 		

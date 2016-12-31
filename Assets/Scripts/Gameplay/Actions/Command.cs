@@ -1,28 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Command : MonoBehaviour {
 
-    enum E_COMMAND_TYPES
+public class Command {
+
+    public enum E_TYPE
     {
         COMMAND_ATTACK,
         COMMAND_STOP,
         COMMAND_MOVE
     }
 
-    E_COMMAND_TYPES m_commandType;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public E_TYPE m_commandType;
 
-    E_COMMAND_TYPES getType()
+    public E_TYPE getType()
     {
         return m_commandType;
     }

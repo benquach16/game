@@ -21,13 +21,13 @@ public abstract class Selectable : MonoBehaviour {
     }
     public Projector m_projSelection;
     // Use this for initialization
-    void Start () {
-        m_projSelection = GetComponentInChildren<Projector>();
-        m_projSelection.enabled = false;
+    void Start ()
+    {
+
     }
     
     // Update is called once per frame
-    void Update () {
+    public virtual void Update () {
         //draw selection circle
         if (m_selected)
         {

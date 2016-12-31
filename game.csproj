@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Gameplay\Components\Armor.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Component.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Health.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Components\Movement.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Weapon.cs" />
     <Compile Include="Assets\Scripts\InputHandler.cs" />
     <Compile Include="Assets\Scripts\NetworkingManager.cs" />

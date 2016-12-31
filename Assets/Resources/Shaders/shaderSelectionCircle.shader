@@ -12,7 +12,7 @@
 		{
 			ZWrite off
 			ColorMask RGB
-			Blend One One
+		Blend SrcAlpha OneMinusSrcAlpha
 		Offset -1, -1
 
 			CGPROGRAM
@@ -43,9 +43,12 @@
 			fixed4 _Color;
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 tex = tex2D(_MainTex, i.uvShadow);
+				fixed4 tex = tex2D(_MainTex,i.uvShadow);
+			fixed4 texF = tex2D(_MainTex, i.uvFalloff);
 				//tex += _Color;
-				//tex *= _Color;
+			tex.a = tex.rgb;
+				tex *= _Color;
+				
 				return tex;
 			}
 			ENDCG

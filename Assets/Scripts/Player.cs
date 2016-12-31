@@ -8,16 +8,17 @@ public class Player : NetworkBehaviour {
 
     Camera m_playerCamera;
 
-    GameObject Unit;
+    //temporary
+    GameObject marine;
 
-    int[] m_selectedIds;
+    List<int> m_selectedIds;
 
     InputHandler m_inputHandler;
     void Start ()
     {
         m_inputHandler = gameObject.GetComponent<InputHandler>();
 
-        Unit = Resources.Load("Prefabs/Units/Marine") as GameObject;
+        marine = Resources.Load("Prefabs/Units/Marine") as GameObject;
 
         transform.position = new Vector3(0, 10, -10);
         m_playerCamera = gameObject.GetComponent<Camera>();
@@ -27,7 +28,10 @@ public class Player : NetworkBehaviour {
             Debug.Log("Local player");
         }
     }
-
+    public void setSelectedObjs(List<int> objectIds)
+    {
+        m_selectedIds = objectIds;
+    }
     private void FixedUpdate()
     {
 
@@ -44,17 +48,27 @@ public class Player : NetworkBehaviour {
         //get commands issued then send to the client
         if (Input.GetKey(KeyCode.A))
         {
-            var unit = GameObject.Instantiate(Unit);
+            var unit = GameObject.Instantiate(marine);
             unit.transform.position = new Vector3();
             var script = unit.GetComponent<Unit>();
             script.controllingPlayer = gameObject;
         }
+        if(Input.GetMouseButtonDown(1))
+        {
 
+            foreach (int id in m_selectedIds)
+            {
+                Unit.mapUnits[id].currentCommand = new CommandMove(new Vector3(10,-1,10));
+            }
+        }
         m_inputHandler.handleInput();
 
     }
 
+    void sendOrder(Command.E_TYPE _command)
+    {
 
+    }
 
 
     

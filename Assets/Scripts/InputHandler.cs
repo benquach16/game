@@ -56,21 +56,23 @@ public class InputHandler : MonoBehaviour {
         Vector3 endMousePos = Input.mousePosition;
         //iterate over every unit??
         var objs = GameObject.FindGameObjectsWithTag("Unit");
-        int[] ids;
+        List<int> ids = new List<int>();
         foreach (GameObject obj in objs)
         {
+            //make sure that we can select all of these
             if(obj.GetComponent<Renderer>().isVisible)
             {
-                Debug.Log(obj.GetComponent<Unit>().controllingPlayer);
                 var screenpos = m_playerCam.WorldToScreenPoint(obj.transform.position);
                 Rect selectionBox = GetScreenRect(startMousePos, endMousePos);
                 if (selectionBox.Contains(screenpos))
                 {
-                    Debug.Log("SELECTED");
                     obj.GetComponent<Unit>().selected = true;
+                    //MUST CHANGE THIS WITH NETWORK IDS
+                    ids.Add(obj.GetComponent<Unit>().currentId);
                 }
             }
         }
+        m_player.setSelectedObjs(ids);
     }
 
 
