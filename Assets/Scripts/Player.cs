@@ -10,7 +10,7 @@ public class Player : NetworkBehaviour {
 
     GameObject Unit;
 
-    List<int> m_selectedIds;
+    int[] m_selectedIds;
 
     InputHandler m_inputHandler;
     void Start ()
@@ -46,6 +46,8 @@ public class Player : NetworkBehaviour {
         {
             var unit = GameObject.Instantiate(Unit);
             unit.transform.position = new Vector3();
+            var script = unit.GetComponent<Unit>();
+            script.controllingPlayer = gameObject;
         }
 
         m_inputHandler.handleInput();

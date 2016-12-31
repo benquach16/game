@@ -8,7 +8,11 @@ public class InputHandler : MonoBehaviour {
     private bool m_isSelecting = false;
     private Texture2D m_selectionTexture;
     // Use this for initialization
+    Player m_player;
+    Camera m_playerCam;
     void Start () {
+        m_player = GetComponent<Player>();
+        m_playerCam = GetComponent<Camera>();
 		m_selectionTexture = new Texture2D(1, 1);
         m_selectionTexture.SetPixel(1, 1, new Color(0,128,0,0.2f)); //Sets the 1 pixel to be white
         m_selectionTexture.Apply(); //Applies all the changes made
@@ -35,6 +39,37 @@ public class InputHandler : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             m_isSelecting = false;
+            //handle selection
+            //call a callback on the player
+            handleSelection();
+        }
+        //right click
+        if(Input.GetMouseButtonDown(1))
+        {
+            
+        }
+    }
+
+    void handleSelection()
+    {
+        Vector3 startMousePos = m_initialClickPosition;
+        Vector3 endMousePos = Input.mousePosition;
+        //iterate over every unit??
+        var objs = GameObject.FindGameObjectsWithTag("Unit");
+        int[] ids;
+        foreach (GameObject obj in objs)
+        {
+            if(obj.GetComponent<Renderer>().isVisible)
+            {
+                Debug.Log(obj.GetComponent<Unit>().controllingPlayer);
+                var screenpos = m_playerCam.WorldToScreenPoint(obj.transform.position);
+                Rect selectionBox = GetScreenRect(startMousePos, endMousePos);
+                if (selectionBox.Contains(screenpos))
+                {
+                    Debug.Log("SELECTED");
+                    obj.GetComponent<Unit>().selected = true;
+                }
+            }
         }
     }
 
