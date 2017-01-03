@@ -54,23 +54,69 @@ public class InputHandler : MonoBehaviour {
     {
         Vector3 startMousePos = m_initialClickPosition;
         Vector3 endMousePos = Input.mousePosition;
+
+        List<int> ids = new List<int>();
+        /*
+        Ray ray1 = m_playerCam.ScreenPointToRay(startMousePos);
+        Ray ray2 = m_playerCam.ScreenPointToRay(endMousePos);
+
+        //generate vertices
+        RaycastHit out1, out2;
+
+        Physics.Raycast(ray1.origin, ray1.direction, out out1, 1000);
+        Physics.Raycast(ray2.origin, ray2.direction, out out2, 1000);
+
+        var vertex1 = m_playerCam.transform.position;
+        var vertex2 = out1.point;
+        var vertex3 = out2.point;
+        var vertex4 = new Vector3(out2.point.x, out1.point.y, out1.point.z);
+        var vertex5 = new Vector3(out1.point.x, out2.point.y, out2.point.z);
+        Mesh m = new Mesh();
+        m.name = "ScriptedMesh";
+        //translate these poor motherfuckers by the inverse of the camera 
+        m.vertices = new Vector3[]
+        {
+            m_playerCam.transform.position,
+            out1.point,
+            out2.point,
+            new Vector3(out2.point.x, out1.point.y, out1.point.z),
+            new Vector3(out1.point.x, out2.point.y, out2.point.z)
+        };
+        m.triangles = new int[] { 0, 1, 3,
+            0, 4, 1,
+            0, 3, 2,
+            0, 2, 4,
+            3, 1, 2,
+            1, 4, 2};
+        m.RecalculateNormals();
+        GameObject newObj = new GameObject();
+        MeshCollider collider = (MeshCollider)newObj.AddComponent(typeof(MeshCollider));
+        collider.sharedMesh = m;
+        */
+
         //iterate over every unit??
         var objs = GameObject.FindGameObjectsWithTag("Unit");
-        List<int> ids = new List<int>();
+        m_player.clearSelectedObjs();
         foreach (GameObject obj in objs)
         {
             //make sure that we can select all of these
             if(obj.GetComponent<Renderer>().isVisible)
             {
                 var screenpos = m_playerCam.WorldToScreenPoint(obj.transform.position);
+
                 Rect selectionBox = GetScreenRect(startMousePos, endMousePos);
-                if (selectionBox.Contains(screenpos))
+                Vector2 screenpoint = new Vector2(screenpos.x, Screen.height - screenpos.y);
+                Debug.Log(selectionBox);
+                Debug.Log(screenpoint);
+                if (selectionBox.Contains(screenpoint, true))
                 {
                     obj.GetComponent<Unit>().selected = true;
                     //MUST CHANGE THIS WITH NETWORK IDS
                     ids.Add(obj.GetComponent<Unit>().currentId);
                 }
             }
+
+            
         }
         m_player.setSelectedObjs(ids);
     }
@@ -84,8 +130,10 @@ public class InputHandler : MonoBehaviour {
         // Calculate corners
         var topLeft = Vector3.Min(screenPosition1, screenPosition2);
         var bottomRight = Vector3.Max(screenPosition1, screenPosition2);
+        var bottomLeft = new Vector3(topLeft.x, bottomRight.y);
+        var size = new Vector2(bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
         // Create Rect
-        return Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
+        return new Rect(topLeft, size);
     }
 
     public void OnGUI()
@@ -98,7 +146,12 @@ public class InputHandler : MonoBehaviour {
             GUI.DrawTexture(rect, m_selectionTexture);
             //GUIElement.DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
         }
-
+        var objs = GameObject.FindGameObjectsWithTag("Unit");
+        foreach (GameObject obj in objs)
+        {
+            var pos = m_playerCam.WorldToScreenPoint(obj.transform.position);
+            GUI.DrawTexture(GetScreenRect(pos, new Vector3(pos.x + 2, pos.y+2, 0)), m_selectionTexture);
+        }
     }
 
 }

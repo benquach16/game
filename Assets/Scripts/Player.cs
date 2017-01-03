@@ -11,7 +11,7 @@ public class Player : NetworkBehaviour {
     //temporary
     GameObject marine;
 
-    List<int> m_selectedIds;
+    List<int> m_selectedIds = new List<int>();
 
     InputHandler m_inputHandler;
     void Start ()
@@ -20,7 +20,7 @@ public class Player : NetworkBehaviour {
 
         marine = Resources.Load("Prefabs/Units/Marine") as GameObject;
 
-        transform.position = new Vector3(0, 10, -10);
+        transform.position = new Vector3(0, 20, -10);
         m_playerCamera = gameObject.GetComponent<Camera>();
         transform.LookAt(new Vector3(0, 0, 0));
         if(hasAuthority)
@@ -31,6 +31,14 @@ public class Player : NetworkBehaviour {
     public void setSelectedObjs(List<int> objectIds)
     {
         m_selectedIds = objectIds;
+    }
+    public void clearSelectedObjs()
+    {
+        foreach(int id in m_selectedIds)
+        {
+            Unit.mapUnits[id].selected = false;
+        }
+        m_selectedIds.Clear();
     }
     private void FixedUpdate()
     {

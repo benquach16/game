@@ -30,6 +30,7 @@ public class Unit : Selectable
         get { return m_currentCommand; }
         set { m_currentCommand = value; }
     }
+    
     void Start ()
     {
         mapUnits.Add(idCounter, this);
@@ -59,11 +60,10 @@ public class Unit : Selectable
         {
             case Command.E_TYPE.COMMAND_MOVE:
                 {
-                    Debug.Log("ASDFSDF");
                     CommandMove moveCmd = m_currentCommand as CommandMove;
                     var location = moveCmd.location;
-                    //rotate and face location
-                    transform.Translate(new Vector3(1, 0, 0));
+                    transform.LookAt(location);
+                    transform.Translate(new Vector3(0.1f, 0, 0));
                     break;
                 }
         }
@@ -75,5 +75,9 @@ public class Unit : Selectable
 
     }
 
-    
+    private void OnGUI()
+    {
+        //render healthbar
+    }
+
 }

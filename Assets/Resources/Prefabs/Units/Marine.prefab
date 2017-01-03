@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136875704934779360}
   - component: {fileID: 23408650291958072}
   - component: {fileID: 114321011440816836}
+  - component: {fileID: 114209530551964458}
   m_Layer: 0
   m_Name: Marine
   m_TagString: Untagged
@@ -111,6 +112,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1334574064021360}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114209530551964458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334574064021360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5aee8dfb16f4549a684c27f1eb13dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movespeed: 1.5
+  rotationspeed: 1.5
 --- !u!114 &114321011440816836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,8 +156,8 @@ Projector:
   m_FarClipPlane: 2
   m_FieldOfView: 90
   m_AspectRatio: 1
-  m_Orthographic: 0
-  m_OrthographicSize: 10
+  m_Orthographic: 1
+  m_OrthographicSize: 1
   m_Material: {fileID: 2100000, guid: d931eb9887a84534db5e1c6d379630d0, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2

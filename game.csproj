@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\NetworkingManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Selectable.cs" />
     <Compile Include="Assets\Scripts\Objects\Unit.cs" />
+    <Compile Include="Assets\Scripts\OrderDelegator.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
   </ItemGroup>
