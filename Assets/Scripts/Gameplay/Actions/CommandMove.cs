@@ -16,4 +16,7 @@ public class CommandMove : Command
         m_commandType = E_TYPE.COMMAND_MOVE;
         m_location = _location;
     }
+
+
+
 }

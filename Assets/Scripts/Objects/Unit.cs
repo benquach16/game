@@ -9,10 +9,7 @@ public class Unit : Selectable
     //should this be public?
     public static Dictionary<int, Unit> mapUnits = new Dictionary<int, Unit>();
     static int idCounter = 0;
-    // Use this for initialization
-    // Don't really need this since we can use unitys component system
-    public List<GameObject> m_components;
-    int m_currentId;
+    protected int m_currentId;
     public int currentId
     {
         get { return m_currentId; }
@@ -30,9 +27,12 @@ public class Unit : Selectable
         get { return m_currentCommand; }
         set { m_currentCommand = value; }
     }
-    
+
+    //TODO: refactor me!!
+    UnitComponent[] m_components = new UnitComponent[5];
     void Start ()
     {
+        m_components[0] = GetComponent<Movement>() as UnitComponent;
         mapUnits.Add(idCounter, this);
         m_currentId = idCounter;
         idCounter++;
@@ -62,8 +62,13 @@ public class Unit : Selectable
                 {
                     CommandMove moveCmd = m_currentCommand as CommandMove;
                     var location = moveCmd.location;
-                    transform.LookAt(location);
-                    transform.Translate(new Vector3(0.1f, 0, 0));
+                    //see if we have movement component then defer action to the movement component
+                    ((Movement)m_components[0]).move(location, gameObject);
+                    break;
+                }
+            case Command.E_TYPE.COMMAND_STOP:
+                {
+                    //stop everything
                     break;
                 }
         }
@@ -77,7 +82,16 @@ public class Unit : Selectable
 
     private void OnGUI()
     {
-        //render healthbar
+        //TODO: refactor me :)
+        if (Player.getLocalPlayer())
+
+        {
+            var screenPos = Player.getLocalCamera().WorldToScreenPoint(transform.position);
+            screenPos.y = Screen.height - screenPos.y;
+            GUI.Label(new Rect(screenPos.x - 20, screenPos.y - 20, screenPos.x + 20, screenPos.y + 20), "Sphess Muhreen");
+        }
+
+
     }
 
 }

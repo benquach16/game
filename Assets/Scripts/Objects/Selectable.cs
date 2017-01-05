@@ -13,16 +13,14 @@ public abstract class Selectable : MonoBehaviour {
         TEAM_NEUTRAL
     }
     E_TEAM m_currentTeam;
-    [HideInInspector]
-    public bool m_selected = false;
+    protected bool m_selected = false;
     [HideInInspector]
     public bool selected
     {
         get { return m_selected; }
         set { m_selected = value; }
     }
-    [HideInInspector]
-    public Projector m_projSelection;
+    protected Projector m_projSelection;
     // Use this for initialization
     void Start ()
     {

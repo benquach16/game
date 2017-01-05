@@ -78,16 +78,17 @@
     <Compile Include="Assets\Scripts\Gameplay\Actions\Command.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Actions\CommandMove.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Armor.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\Components\Component.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Health.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Movement.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Components\UnitComponent.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Weapon.cs" />
-    <Compile Include="Assets\Scripts\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\LockstepManager.cs" />
     <Compile Include="Assets\Scripts\NetworkingManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Selectable.cs" />
     <Compile Include="Assets\Scripts\Objects\Unit.cs" />
-    <Compile Include="Assets\Scripts\OrderDelegator.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Player\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\Player\OrderDelegator.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
   </ItemGroup>
   <ItemGroup>
