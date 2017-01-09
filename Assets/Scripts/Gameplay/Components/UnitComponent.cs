@@ -6,11 +6,12 @@ public class UnitComponent : MonoBehaviour {
 
 	// Use this for initialization
 
-    enum E_COMPONENT_TYPES
+    public enum E_COMPONENT_TYPES
     {
         E_TYPE_WEAPON,
         E_TYPE_ARMOR,
-        E_TYPE_MOVEMENT
+        E_TYPE_MOVEMENT,
+        SIZE
     }
 	void Start () {
 		

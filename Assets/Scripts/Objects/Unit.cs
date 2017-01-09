@@ -29,10 +29,11 @@ public class Unit : Selectable
     }
 
     //TODO: refactor me!!
-    UnitComponent[] m_components = new UnitComponent[5];
+    UnitComponent[] m_components = new UnitComponent[(int)UnitComponent.E_COMPONENT_TYPES.SIZE];
     void Start ()
     {
-        m_components[0] = GetComponent<Movement>() as UnitComponent;
+       
+        m_components[(int)UnitComponent.E_COMPONENT_TYPES.E_TYPE_MOVEMENT] = GetComponent<Movement>() as UnitComponent;
         mapUnits.Add(idCounter, this);
         m_currentId = idCounter;
         idCounter++;
@@ -47,7 +48,11 @@ public class Unit : Selectable
     public override void Update ()
     {
         base.Update();
-        if(m_currentCommand != null)
+    }
+
+    public void simulate()
+    {
+        if (m_currentCommand != null)
         {
             doCommand();
         }
@@ -63,7 +68,7 @@ public class Unit : Selectable
                     CommandMove moveCmd = m_currentCommand as CommandMove;
                     var location = moveCmd.location;
                     //see if we have movement component then defer action to the movement component
-                    ((Movement)m_components[0]).move(location, gameObject);
+                    ((Movement)m_components[(int)UnitComponent.E_COMPONENT_TYPES.E_TYPE_MOVEMENT]).move(location, gameObject);
                     break;
                 }
             case Command.E_TYPE.COMMAND_STOP:

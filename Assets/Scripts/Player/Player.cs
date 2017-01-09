@@ -30,9 +30,6 @@ public class Player : NetworkBehaviour
     protected List<int> m_selectedIds = new List<int>();
     protected InputHandler m_inputHandler;
 
-    private static float accumulatedTime = 0.0f;
-    private static float frameLength = 0.03f;
-    private static int gameFrame = 0;
     void Start ()
     {
         m_inputHandler = gameObject.GetComponent<InputHandler>();
@@ -63,18 +60,18 @@ public class Player : NetworkBehaviour
 
     void Update ()
     {
-        accumulatedTime += Time.deltaTime;
+
+
+    }
+
+    void simulate()
+    {
         //dont run if we arent the player
         if (!hasAuthority)
         {
             return;
         }
-        while(accumulatedTime > frameLength)
-        {
-            gameTurn();
-            accumulatedTime -= frameLength;
-        }
-
+        gameTurn();
     }
 
     void gameTurn()

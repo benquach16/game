@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LockstepManager : MonoBehaviour {
+public class CommandCreateUnit : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

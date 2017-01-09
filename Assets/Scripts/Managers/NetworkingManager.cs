@@ -8,9 +8,23 @@ using System.Collections.Generic;
 
 
 public class NetworkingManager : NetworkManager {
+    //there cant be two networkingmanagers
+    static NetworkingManager instance = null;
+    static NetworkingManager getNetworkingManager()
+    {
+        return instance;
+    }
 
     const int PORT = 25001;
     void Start () {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
         StartMatchMaker();
         //create match when we don't have any other games
         matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchList);

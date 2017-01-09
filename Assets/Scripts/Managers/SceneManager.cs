@@ -12,4 +12,12 @@ public class SceneManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void simulate()
+    {
+        foreach (var unit in Unit.mapUnits)
+        {
+            unit.Value.simulate();
+        }
+    }
 }
