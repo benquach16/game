@@ -46,6 +46,7 @@ public class NetworkingManager : NetworkManager {
             Debug.Log(matchInfo.address);
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
             m_client = StartHost(matchInfo);
+            client.RegisterHandler(Command.msgType, CommandMsgEvent);
         }
     }
 
@@ -90,6 +91,7 @@ public class NetworkingManager : NetworkManager {
         Debug.Log(matchInfo.address);
         client.Connect(matchInfo);
         client.RegisterHandler(MsgType.Connect, OnConnectedClient);
+        client.RegisterHandler(Command.msgType, CommandMsgEvent);
     }
 
     public void OnPlayerConnected(NetworkPlayer player)
@@ -111,7 +113,7 @@ public class NetworkingManager : NetworkManager {
 
     public void SendMsg(MessageBase _msg)
     {
-        
+        m_client.Send(888, _msg);
     }
 
     //get a msg

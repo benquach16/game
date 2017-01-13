@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Command : MessageBase{
 
+    public static short msgType = 888;
     public enum E_TYPE
     {
         COMMAND_ATTACK,
