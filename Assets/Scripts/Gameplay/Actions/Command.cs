@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 
-public class Command {
+public class Command : MessageBase{
 
     public enum E_TYPE
     {

@@ -32,6 +32,14 @@ public class Player : NetworkBehaviour
 
     void Start ()
     {
+        if(m_localPlayer == null && hasAuthority)
+        {
+            m_localPlayer = this;
+        }
+        else
+        {
+            m_networkPlayers.Add(this);
+        }
         m_inputHandler = gameObject.GetComponent<InputHandler>();
 
         marine = Resources.Load("Prefabs/Units/Marine") as GameObject;
@@ -64,7 +72,7 @@ public class Player : NetworkBehaviour
 
     }
 
-    void simulate()
+    public void simulate()
     {
         //dont run if we arent the player
         if (!hasAuthority)
@@ -92,19 +100,14 @@ public class Player : NetworkBehaviour
             Physics.Raycast(ray.origin, ray.direction, out hit, 100);
             var point = hit.point;
             point.y = 0;
-            foreach (int id in m_selectedIds)
-            {
-                Unit.mapUnits[id].currentCommand = new CommandMove(point);
-            }
+            //push this to a command queue
+            LockstepManager.getLockstepManager().queueCommand(new CommandMove(point, m_selectedIds));
         }
         m_inputHandler.handleInput();
 
     }
 
-    void sendOrder(Command.E_TYPE _command)
-    {
 
-    }
 
 
     

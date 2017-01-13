@@ -44,9 +44,10 @@ public class InputHandler : MonoBehaviour {
         //right click
         if(Input.GetMouseButtonDown(1))
         {
-            
+          
         }
     }
+
 
     void handleSelection()
     {

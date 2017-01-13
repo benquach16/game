@@ -28,6 +28,8 @@ public class Unit : Selectable
         set { m_currentCommand = value; }
     }
 
+    List<Command> m_commandQueue;
+
     //TODO: refactor me!!
     UnitComponent[] m_components = new UnitComponent[(int)UnitComponent.E_COMPONENT_TYPES.SIZE];
     void Start ()
@@ -78,6 +80,11 @@ public class Unit : Selectable
                 }
         }
 
+    }
+
+    public void addCommand(Command _command)
+    {
+        m_commandQueue.Add(_command);
     }
 
     void runAI()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : UnitComponent
 {
-
+    //do we really need this
     private float ACCEPTABLE_DISTANCE = 0.5f;
     public float movespeed;
     public float rotationspeed;

@@ -14,7 +14,9 @@ public class NetworkingManager : NetworkManager {
     {
         return instance;
     }
+    List<NetworkPlayer> m_connectedPlayers;
 
+    NetworkClient m_client;
     const int PORT = 25001;
     void Start () {
         if(instance == null)
@@ -43,7 +45,7 @@ public class NetworkingManager : NetworkManager {
             Debug.Log("Created Match");
             Debug.Log(matchInfo.address);
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
-            var client = StartHost(matchInfo);
+            m_client = StartHost(matchInfo);
         }
     }
 
@@ -84,7 +86,7 @@ public class NetworkingManager : NetworkManager {
         //spawn a player for us
         if (Utility.GetAccessTokenForNetwork(matchInfo.networkId) == null)
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
-        var client = StartClient(matchInfo);
+        m_client = StartClient(matchInfo);
         Debug.Log(matchInfo.address);
         client.Connect(matchInfo);
         client.RegisterHandler(MsgType.Connect, OnConnectedClient);
@@ -93,13 +95,18 @@ public class NetworkingManager : NetworkManager {
     public void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("player connected");
+        m_connectedPlayers.Add(player);
+        
     }
+
+    //client only
     public void OnConnectedClient(NetworkMessage netMsg)
     {
         Debug.Log("Connected to server");
         //need to set connection as ready
         ClientScene.Ready(netMsg.conn);
         ClientScene.AddPlayer(0);
+
     }
 
 
