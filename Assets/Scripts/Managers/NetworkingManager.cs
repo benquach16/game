@@ -109,5 +109,16 @@ public class NetworkingManager : NetworkManager {
 
     }
 
+    public void SendMsg(MessageBase _msg)
+    {
+        
+    }
+
+    //get a msg
+    public void CommandMsgEvent(NetworkMessage _msg)
+    {
+
+    }
+
 
 }
