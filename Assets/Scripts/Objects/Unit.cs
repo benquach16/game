@@ -82,7 +82,7 @@ public class Unit : Selectable
 
     }
 
-    public void addCommand(Command _command)
+    public void queueCommand(Command _command)
     {
         m_commandQueue.Add(_command);
     }

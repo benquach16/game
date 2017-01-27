@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Gameplay\Actions\Command.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Actions\CommandCreateUnit.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Actions\CommandMessageBuffer.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Actions\CommandMove.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Armor.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Components\Health.cs" />

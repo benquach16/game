@@ -1,19 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class LockstepManager : MonoBehaviour {
     static LockstepManager instance = null;
-    public static LockstepManager getLockstepManager()
-    {
-        return instance;
-    }
     private static float accumulatedTime = 0.0f;
     static float frameLength = 0.01f;
     // Use this for initialization
     private SceneManager m_sceneManager;
-
-    private List<Command> m_commandsToSend;
+    
 	void Start () {
 		if(instance == null)
         {
@@ -36,6 +32,7 @@ public class LockstepManager : MonoBehaviour {
             accumulatedTime -= frameLength;
         }
         //get inputs from other players and push
+        NetworkingManager.getNetworkingManager().sendInputQueue();
 	}
 
     void simulate()
@@ -45,15 +42,4 @@ public class LockstepManager : MonoBehaviour {
         m_sceneManager.simulate();
     }
 
-    void sendInputQueue()
-    {
-        //send and flush
-        //serialize first
-        
-    }
-
-    public void queueCommand(Command _command)
-    {
-        m_commandsToSend.Add(_command);
-    }
 }

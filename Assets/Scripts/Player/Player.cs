@@ -101,7 +101,9 @@ public class Player : NetworkBehaviour
             var point = hit.point;
             point.y = 0;
             //push this to a command queue
-            LockstepManager.getLockstepManager().queueCommand(new CommandMove(point, m_selectedIds));
+            var cmd = new CommandMove(point, m_selectedIds);
+            //would normally do this as an event but needs to be atomic
+            NetworkingManager.getNetworkingManager().addCommand(cmd);
         }
         m_inputHandler.handleInput();
 

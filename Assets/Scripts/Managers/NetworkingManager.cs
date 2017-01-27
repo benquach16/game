@@ -10,12 +10,13 @@ using System.Collections.Generic;
 public class NetworkingManager : NetworkManager {
     //there cant be two networkingmanagers
     static NetworkingManager instance = null;
-    static NetworkingManager getNetworkingManager()
+    public static NetworkingManager getNetworkingManager()
     {
         return instance;
     }
     List<NetworkPlayer> m_connectedPlayers;
 
+    List<Command> m_commandsToSend;
     NetworkClient m_client;
     const int PORT = 25001;
     void Start () {
@@ -46,7 +47,7 @@ public class NetworkingManager : NetworkManager {
             Debug.Log(matchInfo.address);
             Utility.SetAccessTokenForNetwork(matchInfo.networkId, matchInfo.accessToken);
             m_client = StartHost(matchInfo);
-            client.RegisterHandler(Command.msgType, CommandMsgEvent);
+            client.RegisterHandler(CommandMessageBuffer.msgType, CommandMsgEvent);
         }
     }
 
@@ -91,7 +92,7 @@ public class NetworkingManager : NetworkManager {
         Debug.Log(matchInfo.address);
         client.Connect(matchInfo);
         client.RegisterHandler(MsgType.Connect, OnConnectedClient);
-        client.RegisterHandler(Command.msgType, CommandMsgEvent);
+        client.RegisterHandler(CommandMessageBuffer.msgType, CommandMsgEvent);
     }
 
     public void OnPlayerConnected(NetworkPlayer player)
@@ -111,15 +112,36 @@ public class NetworkingManager : NetworkManager {
 
     }
 
-    public void SendMsg(MessageBase _msg)
+    public void sendInputQueue()
     {
-        m_client.Send(888, _msg);
+        //send and flush
+        //serialize first
+        //send to networking manager
+        CommandMessageBuffer buf = new CommandMessageBuffer();
+        buf.m_commands = m_commandsToSend.ToArray();
+        client.SendByChannel(CommandMessageBuffer.msgType, buf, 1);
+    }
+
+    public void getInputQueue()
+    {
+        //read
+        //only run this during the phases when we process input
+        NetworkReader reader = new NetworkReader();
+        List<Command> recvCommands = new List<Command>();
+
+
+    }
+
+    public void addCommand(Command _cmd)
+    {
+        m_commandsToSend.Add(_cmd);
     }
 
     //get a msg
     public void CommandMsgEvent(NetworkMessage _msg)
     {
-
+        //deserialize cmd
+        Debug.Log("STUFF");
     }
 
 
